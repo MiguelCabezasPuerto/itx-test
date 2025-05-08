@@ -31,9 +31,11 @@ jobs:
         run: mvn clean install
 
       - name: Run Acceptance Tests with Cucumber
+        working-directory: ./product
         run: mvn verify -Dcucumber.options="--plugin pretty"
 
       - name: Run E2E Tests with RestAssured
+        working-directory: ./product
         run: mvn verify -Dtest=RestAssuredTest
 
       - name: Run Scalability Tests with Artillery
