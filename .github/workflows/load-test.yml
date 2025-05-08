@@ -1,0 +1,34 @@
+name: Load Test
+
+on:
+  workflow_run:
+    workflows: ["CI/CD Pipeline"]
+    types:
+      - completed
+
+jobs:
+  artillery:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install artillery
+        run: npm install -g artillery
+
+      - name: Wait for the app being active
+        run: |
+          for i in {1..20}; do
+            if curl -sSf https://itx-test-smxc.onrender.com/actuator/health > /dev/null; then
+              echo "App available"
+              break
+            else
+              echo "Waiting..."
+              sleep 10
+            fi
+          done
+
+      - name: Run smoke test with Artillery
+        run: artillery run product/load-tests/smoke-test.yml
