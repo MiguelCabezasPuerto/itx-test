@@ -20,14 +20,19 @@ jobs:
       - name: List files
         run: ls -R
 
+
+      - name: Change directory to product
+        run: cd product
+
+
       - name: Build with Maven
-        run: mvn -f ./product/pom.xml clean install
+        run: mvn clean install
 
       - name: Run Acceptance Tests with Cucumber
-        run: mvn ./product/pom.xml verify -Dcucumber.options="--plugin pretty"
+        run: mvn verify -Dcucumber.options="--plugin pretty"
 
       - name: Run E2E Tests with RestAssured
-        run: mvn ./product/pom.xml verify -Dtest=RestAssuredTest
+        run: mvn verify -Dtest=RestAssuredTest
 
       - name: Run Scalability Tests with Artillery
         run: |
