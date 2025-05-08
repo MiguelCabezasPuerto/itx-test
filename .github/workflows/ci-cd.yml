@@ -19,17 +19,17 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn -f product/pom.xml clean install
 
       - name: Run Unit Tests
-        run: mvn test
+        run: mvn product/pom.xml test
 
       - name: Run Acceptance Tests with Cucumber
-        run: mvn verify -Dcucumber.options="--plugin pretty"
+        run: mvn product/pom.xml verify -Dcucumber.options="--plugin pretty"
 
       - name: Run E2E Tests with RestAssured
-        run: mvn verify -Dtest=RestAssuredTest
+        run: mvn product/pom.xml verify -Dtest=RestAssuredTest
       - name: Run Scalability Tests with Artillery
         run: |
           npm install -g artillery
-          artillery run artillery-config.yml
+          artillery run product/load-tests/smoke-test.yml
