@@ -17,6 +17,8 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+      - name: List files
+        run: ls -R
 
       - name: Build with Maven
         run: mvn -f product/pom.xml clean install
