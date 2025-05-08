@@ -1,5 +1,5 @@
 config:
-  target: "http://localhost:8080"
+  target: "https://itx-test-smxc.onrender.com"
   phases:
     - duration: 10
       arrivalRate: 1
