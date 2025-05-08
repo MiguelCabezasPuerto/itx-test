@@ -27,6 +27,7 @@ jobs:
         run: cd product && ls
 
       - name: Build with Maven
+        working-directory: ./product
         run: mvn clean install
 
       - name: Run Acceptance Tests with Cucumber
