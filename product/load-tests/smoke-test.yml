@@ -1,0 +1,10 @@
+config:
+  target: "http://localhost:8080"
+  phases:
+    - duration: 10
+      arrivalRate: 1
+scenarios:
+  - name: Smoke test - simple request
+    flow:
+      - get:
+          url: "/prices?brandId=1&productId=35455&date=2020-06-14 10:00:00"

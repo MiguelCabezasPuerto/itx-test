@@ -1,0 +1,12 @@
+config:
+  target: "http://localhost:8080"
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      rampTo: 50
+      name: "Pasa de 5 a 50 usuarios/workers en 1 min"
+scenarios:
+  - name: Ramp test - carga creciente
+    flow:
+      - get:
+          url: "/prices?brandId=1&productId=35455&date=2020-06-14 10:00:00"
