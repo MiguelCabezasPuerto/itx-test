@@ -20,10 +20,11 @@ jobs:
       - name: List files
         run: ls -R
 
+      - name: See mvn version
+        run: mvn -version
 
       - name: Change directory to product
-        run: cd product
-
+        run: cd product && ls
 
       - name: Build with Maven
         run: mvn clean install
