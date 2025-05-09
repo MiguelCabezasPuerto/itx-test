@@ -21,7 +21,7 @@ Utiliza arquitectura hexagonal con las siguientes capas:
 - **Alta disponibilidad**: hace uso de cachés locales ofrecidas por spring boot para un reducción de los tiempos de consulta. A su vez implementa un circuit breaker para en caso de errores internos no verse saturada y dar una respuesta por defecto hasta que esos errores internos remitan.
 - **Alta escalabilidad**: hace uso de una arquitectura hexagonal que la dota de mayor desacoplamiento.
 - **Alto rendimiento**: hace uso de cachés así como de índices y fechas sobre la base de datos para reducir el tiempo de consulta. De igual modo contiene test de escalabilidad para verificar su rendimiento tras cada nuevo desarrollo.
-- **Mantenibilidad**: sigue una arquitectura limpia (arquitectura hexagonal) que desacopla las responsabilidades, a su vez sigue un patrón factoría para la creación de excepciones lo que la hace más flexible y la generación de parte del modelo y el controlador es automática gracias a OpenApi.
+- **Mantenibilidad**: sigue una arquitectura limpia (arquitectura hexagonal) que desacopla las responsabilidades muy ligado a un enfoque DDD, a su vez sigue un patrón factoría para la creación de excepciones lo que la hace más flexible y la generación de parte del modelo y el controlador es automática gracias a OpenApi.
 - **Testeable**: incluye una cobertura del 100% entre test unitarios con JUnit5, de aceptación con Gherkin y Cucumber, E2E con RestAssured y de escalabilidad con Artillery. Del mismo modo, se han añadido logs de error con la referencia al producto para facilitar el troubleshooting en caso de fallos.
 - **Documentable**: hace uso de OpenApi para facilitar la documentación del API con Swaggger, de igual modo contiene JavaDoc en sus clases y este README de apoyo.
 
@@ -86,7 +86,8 @@ Utiliza arquitectura hexagonal con las siguientes capas:
 - **Concepto**
   - Setear el precio como cantidad + exponente para abarcar más mercados donde el exponente de la moneda no sea solo dos (decimales).
 - **Documentable**:
-    - **OpenAPI**: improve the OpenAPI documentation with example values, default values, etc.
+    - **OpenAPI**: mejorar especificación OpenAPI con ejemplos, valores por defecto, etc
+    - **Swagger**: generar la documentación del API con Swagger. Al intentarlo me daba conflictos con dependencias incluidas de OpenApi y hacía que algunos tests de RestAssured fallaran.
 
 ## 📬 Constribuciones y contacto
 - Para contribuir, obtén una **nueva rama** del repositorio y abre una **pull request**.
