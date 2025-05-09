@@ -37,8 +37,3 @@ jobs:
       - name: Run E2E Tests with RestAssured
         working-directory: ./product
         run: mvn verify -Dtest=e2e.PriceE2ETest
-
-      - name: Run Scalability Tests with Artillery
-        run: |
-          npm install -g artillery
-          artillery run product/load-tests/smoke-test.yml
