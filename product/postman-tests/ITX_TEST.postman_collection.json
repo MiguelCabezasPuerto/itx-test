@@ -1,0 +1,807 @@
+{
+	"info": {
+		"_postman_id": "930d3700-b773-4d20-8275-28aefc578114",
+		"name": "ITX_TEST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13047650"
+	},
+	"item": [
+		{
+			"name": "local",
+			"item": [
+				{
+					"name": "200 - Get price example",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Price is correct\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.price).to.eql(parseFloat(\"35.5\"));\r",
+									"    pm.expect(jsonData.fareId).to.eql(parseInt(\"1\"));\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/prices?brandId=1&productId=35455&date=2020-06-14 10:00:00",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"prices"
+							],
+							"query": [
+								{
+									"key": "brandId",
+									"value": "1"
+								},
+								{
+									"key": "productId",
+									"value": "35455"
+								},
+								{
+									"key": "date",
+									"value": "2020-06-14 10:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Get prices examples",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Price is correct\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.price).to.eql(parseFloat(pm.iterationData.get(\"expectedPrice\")));\r",
+									"    pm.expect(jsonData.fareId).to.eql(parseInt(pm.iterationData.get(\"expectedFare\")));\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/prices?brandId={{brandId}}&productId={{productId}}&date={{date}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"prices"
+							],
+							"query": [
+								{
+									"key": "brandId",
+									"value": "{{brandId}}"
+								},
+								{
+									"key": "productId",
+									"value": "{{productId}}"
+								},
+								{
+									"key": "date",
+									"value": "{{date}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "401 - Unauthorized credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "passwordd",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/prices?brandId=1&productId=35455&date=2020-06-16 21:00:00",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"prices"
+							],
+							"query": [
+								{
+									"key": "brandId",
+									"value": "1"
+								},
+								{
+									"key": "productId",
+									"value": "35455"
+								},
+								{
+									"key": "date",
+									"value": "2020-06-16 21:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400 - Bad request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/prices?brandId=2&productId=35455&date=202-06-14T10:00:00",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"prices"
+							],
+							"query": [
+								{
+									"key": "brandId",
+									"value": "2"
+								},
+								{
+									"key": "productId",
+									"value": "35455"
+								},
+								{
+									"key": "date",
+									"value": "202-06-14T10:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "404 - Not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/prices?brandId=2&productId=35455&date=2020-06-14 10:00:00",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"prices"
+							],
+							"query": [
+								{
+									"key": "brandId",
+									"value": "2"
+								},
+								{
+									"key": "productId",
+									"value": "35455"
+								},
+								{
+									"key": "date",
+									"value": "2020-06-14 10:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "to_render_server",
+			"item": [
+				{
+					"name": "200 - Get price example",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Price is correct\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.price).to.eql(parseFloat(\"38.95\"));\r",
+									"    pm.expect(jsonData.fareId).to.eql(parseInt(\"4\"));\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://itx-test-smxc.onrender.com/prices?brandId=1&productId=35455&date=2020-06-16 10:00:00",
+							"protocol": "https",
+							"host": [
+								"itx-test-smxc",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"prices"
+							],
+							"query": [
+								{
+									"key": "brandId",
+									"value": "1"
+								},
+								{
+									"key": "productId",
+									"value": "35455"
+								},
+								{
+									"key": "date",
+									"value": "2020-06-16 10:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Get prices examples",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Price is correct\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.price).to.eql(parseFloat(pm.iterationData.get(\"expectedPrice\")));\r",
+									"    pm.expect(jsonData.fareId).to.eql(parseInt(pm.iterationData.get(\"expectedFare\")));\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://itx-test-smxc.onrender.com/prices?brandId={{brandId}}&productId={{productId}}&date={{date}}",
+							"protocol": "https",
+							"host": [
+								"itx-test-smxc",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"prices"
+							],
+							"query": [
+								{
+									"key": "brandId",
+									"value": "{{brandId}}"
+								},
+								{
+									"key": "productId",
+									"value": "{{productId}}"
+								},
+								{
+									"key": "date",
+									"value": "{{date}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "401 - Unauthorized credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "passwordd",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://itx-test-smxc.onrender.com/prices?brandId=1&productId=35455&date=2020-06-16 21:00:00",
+							"protocol": "https",
+							"host": [
+								"itx-test-smxc",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"prices"
+							],
+							"query": [
+								{
+									"key": "brandId",
+									"value": "1"
+								},
+								{
+									"key": "productId",
+									"value": "35455"
+								},
+								{
+									"key": "date",
+									"value": "2020-06-16 21:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400 - Bad request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://itx-test-smxc.onrender.com/prices?brandId=2&productId=35455&date=202-06-14T10:00:00",
+							"protocol": "https",
+							"host": [
+								"itx-test-smxc",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"prices"
+							],
+							"query": [
+								{
+									"key": "brandId",
+									"value": "2"
+								},
+								{
+									"key": "productId",
+									"value": "35455"
+								},
+								{
+									"key": "date",
+									"value": "202-06-14T10:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "404 - Not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://itx-test-smxc.onrender.com/prices?brandId=2&productId=35455&date=2020-06-14 10:00:00",
+							"protocol": "https",
+							"host": [
+								"itx-test-smxc",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"prices"
+							],
+							"query": [
+								{
+									"key": "brandId",
+									"value": "2"
+								},
+								{
+									"key": "productId",
+									"value": "35455"
+								},
+								{
+									"key": "date",
+									"value": "2020-06-14 10:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Get prices examples",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Price is correct\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.price).to.eql(parseFloat(pm.iterationData.get(\"expectedPrice\")));\r",
+									"    pm.expect(jsonData.fareId).to.eql(parseInt(pm.iterationData.get(\"expectedFare\")));\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://itx-test-smxc.onrender.com/prices?brandId={{brandId}}&productId={{productId}}&date={{date}}",
+							"protocol": "https",
+							"host": [
+								"itx-test-smxc",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"prices"
+							],
+							"query": [
+								{
+									"key": "brandId",
+									"value": "{{brandId}}"
+								},
+								{
+									"key": "productId",
+									"value": "{{productId}}"
+								},
+								{
+									"key": "date",
+									"value": "{{date}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "401 - Unauthorized credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "passwordd",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://itx-test-smxc.onrender.com/prices?brandId=1&productId=35455&date=2020-06-16 21:00:00",
+							"protocol": "https",
+							"host": [
+								"itx-test-smxc",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"prices"
+							],
+							"query": [
+								{
+									"key": "brandId",
+									"value": "1"
+								},
+								{
+									"key": "productId",
+									"value": "35455"
+								},
+								{
+									"key": "date",
+									"value": "2020-06-16 21:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400 - Bad request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://itx-test-smxc.onrender.com/prices?brandId=2&productId=35455&date=202-06-14T10:00:00",
+							"protocol": "https",
+							"host": [
+								"itx-test-smxc",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"prices"
+							],
+							"query": [
+								{
+									"key": "brandId",
+									"value": "2"
+								},
+								{
+									"key": "productId",
+									"value": "35455"
+								},
+								{
+									"key": "date",
+									"value": "202-06-14T10:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "404 - Not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://itx-test-smxc.onrender.com/prices?brandId=2&productId=35455&date=2020-06-14 10:00:00",
+							"protocol": "https",
+							"host": [
+								"itx-test-smxc",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"prices"
+							],
+							"query": [
+								{
+									"key": "brandId",
+									"value": "2"
+								},
+								{
+									"key": "productId",
+									"value": "35455"
+								},
+								{
+									"key": "date",
+									"value": "2020-06-14 10:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{PASSWORD}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{USER}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
