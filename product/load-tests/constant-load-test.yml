@@ -4,10 +4,12 @@ config:
     - duration: 120
       arrivalRate: 20
       name: "Carga mantenida a razon de 20 peticiones por minuto durante 2 minutos"
+  http:
+    auth:
+      user: "user"
+      pass: "password"
 scenarios:
   - name: Constant load test
     flow:
       - get:
           url: "/prices?brandId=1&productId=35455&date=2020-06-14T10:00:00Z"
-          headers:
-            Authorization: "Basic dXNlcjpwYXNzd29yZA=="

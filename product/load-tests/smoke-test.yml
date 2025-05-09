@@ -3,10 +3,12 @@ config:
   phases:
     - duration: 10
       arrivalRate: 1
+  http:
+    auth:
+      user: "user"
+      pass: "password"
 scenarios:
   - name: Smoke test - simple request
     flow:
       - get:
           url: "/prices?brandId=1&productId=35455&date=2020-06-14 10:00:00"
-          headers:
-            Authorization: "Basic dXNlcjpwYXNzd29yZA=="

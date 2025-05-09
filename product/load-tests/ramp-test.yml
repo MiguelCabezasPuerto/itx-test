@@ -5,10 +5,12 @@ config:
       arrivalRate: 5
       rampTo: 50
       name: "Pasa de 5 a 50 usuarios/workers en 1 min"
+  http:
+    auth:
+      user: "user"
+      pass: "password"
 scenarios:
   - name: Ramp test - carga creciente
     flow:
       - get:
           url: "/prices?brandId=1&productId=35455&date=2020-06-14 10:00:00"
-          headers:
-            Authorization: "Basic dXNlcjpwYXNzd29yZA=="
