@@ -17,23 +17,17 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-      - name: List files
-        run: ls -R
-
-      - name: See mvn version
-        run: mvn -version
-
-      - name: Change directory to product
+      - name: Cambiar de directorio
         run: cd product && ls
 
-      - name: Build with Maven
+      - name: Maven Build
         working-directory: ./product
         run: mvn clean install
 
-      - name: Run Acceptance Tests with Cucumber
+      - name: Test de aceptación
         working-directory: ./product
         run: mvn verify -Dcucumber.options="--plugin pretty"
 
-      - name: Run E2E Tests with RestAssured
+      - name: Test E2E
         working-directory: ./product
         run: mvn verify -Dtest=e2e.PriceE2ETest
