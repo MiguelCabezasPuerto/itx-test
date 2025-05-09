@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GetPriceStepDefs {
 
-    private final TestRestTemplate restTemplate = new TestRestTemplate();
+    private final TestRestTemplate restTemplate = new TestRestTemplate("user","password");
     private ResponseEntity<String> response;
     private Integer brandId;
     private Integer productId;

@@ -36,6 +36,7 @@ public class PriceE2ETest {
     @MethodSource("testCases")
     void shouldReturnCorrectPrice(TestInputs inputs) {
         RestAssured.given()
+                .auth().basic("user", "password")
                 .contentType(ContentType.JSON)
                 .queryParam("brandId", inputs.brandId())
                 .queryParam("productId", inputs.productId())
@@ -52,6 +53,7 @@ public class PriceE2ETest {
     public void return_404() {
         RestAssured
                 .given()
+                .auth().basic("user", "password")
                 .accept(ContentType.JSON)
                 .queryParam("brandId", 2)
                 .queryParam("productId", 35455)
@@ -65,6 +67,7 @@ public class PriceE2ETest {
     public void return_400() {
         RestAssured
                 .given()
+                .auth().basic("user", "password")
                 .accept(ContentType.JSON)
                 .queryParam("brandId", 2)
                 .queryParam("productId", 35455)
@@ -73,6 +76,20 @@ public class PriceE2ETest {
                 .get("/prices")
                 .then()
                 .statusCode(400);
+    }
+    @Test
+    public void return_401_unauthorized() {
+        RestAssured
+                .given()
+                .auth().basic("user", "passwordd")
+                .accept(ContentType.JSON)
+                .queryParam("brandId", 2)
+                .queryParam("productId", 35455)
+                .queryParam("date", "202-06-14 10:00:00")
+                .when()
+                .get("/prices")
+                .then()
+                .statusCode(401);
     }
 
     private record TestInputs(int brandId, int productId, String date, float expectedPrice, int expectedFare) {}
