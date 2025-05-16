@@ -64,6 +64,11 @@ Utiliza arquitectura hexagonal con las siguientes capas:
    docker-compose up -d
    ```
 3. API estará dispoible en: `http://localhost:8080/prices??brandId=idCadena&productId=idProducto&date=YYYY-MM-DD HH:MM:SS`
+4. Alternativamente si no se quiere usar Docker se puede desplegar en local mediante Maven:
+    - Compilar y ejecutar el código fuente:
+  ```
+   mvn spring-boot:run
+   ```
 
 ### Pasos para render
 1. Clonar el repositorio
